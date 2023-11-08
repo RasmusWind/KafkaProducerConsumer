@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys, json, datetime, calendar, time, requests, socket
+import sys, json, datetime, calendar, time, socket, httpx
 from argparse import ArgumentParser, FileType
 from configparser import ConfigParser
 from confluent_kafka import Consumer, OFFSET_BEGINNING
@@ -52,8 +52,8 @@ if __name__ == '__main__':
                         housedata = f'house_id="{house_id}"'
                         try:
                             time.sleep(0.1)
-                            requests.post(f"http://172.16.250.15:8428/api/v1/import/prometheus?extra_label=instance=RAPPERDAPPER", data=f'superpower{{{housedata}}} {float(power)} {timestamp}\n')
-                        except requests.exceptions.ConnectionError:
+                            httpx.post(f"http://172.16.250.15:8428/api/v1/import/prometheus?extra_label=instance=RAPPERDAPPER", data=f'superpower{{{housedata}}} {float(power)} {timestamp}\n')
+                        except Exception:
                             pass
                 except:
                     pass
@@ -92,9 +92,8 @@ if __name__ == '__main__':
                         
                         housedata = f'house_id="{house_id}"'
                         try:
-                            time.sleep(0.1)
-                            requests.post(f"http://172.16.250.15:8428/api/v1/import/prometheus?extra_label=instance=RAPPERDAPPER", data=f'superwater{{{housedata}}} {float(power)} {timestamp}\n')
-                        except requests.exceptions.ConnectionError:
+                            httpx.post(f"http://172.16.250.15:8428/api/v1/import/prometheus?extra_label=instance=RAPPERDAPPER", data=f'superwater{{{housedata}}} {float(power)} {timestamp}\n')
+                        except Exception:
                             pass
                 except:
                     pass
@@ -133,9 +132,8 @@ if __name__ == '__main__':
                         
                         housedata = f'house_id="{house_id}"'
                         try:
-                            time.sleep(0.1)
-                            requests.post(f"http://172.16.250.15:8428/api/v1/import/prometheus?extra_label=instance=RAPPERDAPPER", data=f'superheat{{{housedata}}} {float(power)} {timestamp}\n')
-                        except requests.exceptions.ConnectionError:
+                            httpx.post(f"http://172.16.250.15:8428/api/v1/import/prometheus?extra_label=instance=RAPPERDAPPER", data=f'superheat{{{housedata}}} {float(power)} {timestamp}\n')
+                        except Exception:
                             pass
                 except:
                     pass
